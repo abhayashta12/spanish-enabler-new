@@ -1,0 +1,79 @@
+/* Responsive adjustments for different screens */
+
+/* Small screens (Phones) */
+@media (max-width: 768px) {
+    html {
+      font-size: 14px; /* Scale down the entire page */
+    }
+  
+    body {
+      padding: 0 1rem; /* Add padding to prevent content from touching the edges */
+    }
+  
+    .modal {
+      max-width: 95%;
+    }
+  }
+  
+  /* Medium screens (Tablets) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    html {
+      font-size: 15px; /* Slightly reduce scaling */
+    }
+  
+    body {
+      padding: 0 1.5rem;
+    }
+  }
+  
+  /* Large screens (Desktops and beyond) */
+  @media (min-width: 1025px) {
+    html {
+      font-size: 16px; /* Default scale */
+    }
+  }
+
+
+  /* Footer ------------*/
+
+  /* Make the Newsletter Bar Smaller on Phones */
+@media (max-width: 768px) {
+    .newsletter-bar {
+      padding: 0.5rem 1rem; /* Reduce padding */
+      font-size: 0.9rem; /* Decrease font size */
+    }
+  
+    .newsletter-bar input {
+      padding: 0.3rem 0.5rem; /* Make input fields smaller */
+      font-size: 0.85rem; /* Smaller text in input */
+    }
+  
+    .newsletter-bar button {
+      padding: 0.4rem 0.8rem; /* Reduce button padding */
+      font-size: 0.85rem; /* Smaller button text */
+    }
+  }
+  
+  /* Testimonials Cards */
+  /*Card Size for Phones */
+
+  
+@media (max-width: 768px) {
+    .testimonial-card {
+      padding: 1rem; /* Reduce card padding */
+      margin: 0.5rem; /* Add smaller margins between cards */
+      font-size: 0.85rem; /* Reduce font size */
+    }
+  
+    .testimonial-card h3 {
+      font-size: 1rem; /* Smaller headings */
+      margin-bottom: 0.5rem;
+    }
+  
+    .testimonial-card p {
+      font-size: 0.8rem; /* Reduce paragraph text */
+      line-height: 1.4;
+    }
+  }
+  
+  

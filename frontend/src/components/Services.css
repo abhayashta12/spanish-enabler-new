@@ -1,0 +1,30 @@
+/* src/components/Services.css */
+
+.services-container {
+    background-color:-gray-700; /* Light grey background to contrast the cards */
+    padding: 4rem 1rem;
+  }
+  
+  .service-cards {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .service-card {
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-card h3 {
+    color: #333;
+  }
+  
+  .service-card p {
+    color: #555;
+  }
+  
