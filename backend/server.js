@@ -14,11 +14,13 @@ app.use(express.json());
 app.use(morgan('combined')); // Log HTTP requests
 
 // CORS: Restrict origins to the client URL
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-}));
+app.use(cors(
+//     {
+//   origin: process.env.CLIENT_URL,
+//   methods: ['GET', 'POST'],
+//   allowedHeaders: ['Content-Type'],
+// }
+));
 
 // Rate Limiting: Prevent abuse
 const limiter = rateLimit({
@@ -70,7 +72,7 @@ app.post('/subscribe', async (req, res) => {
 });
 
 // Endpoint for retrieving checkout session details
-app.get('${backendUrl}/retrieve-checkout-session/${sessionId}', async (req, res) => {
+app.get('$/retrieve-checkout-session/:sessionId', async (req, res) => {
   try {
     const sessionId = req.params.sessionId;
     if (!sessionId) {
