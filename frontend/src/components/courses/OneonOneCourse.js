@@ -6,6 +6,9 @@ const OneonOneCourse = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [customPrice, setCustomPrice] = useState(0);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+
   // Define courses as an array of objects
   const courses = [
     {
@@ -79,7 +82,7 @@ const OneonOneCourse = () => {
 
     try {
       // Sending a request to the backend server to create a Stripe checkout session
-      const response = await fetch('${process.env.REACT_APP_API_URL/create-checkout-session', {
+      const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
