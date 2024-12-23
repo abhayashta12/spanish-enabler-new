@@ -70,7 +70,7 @@ app.post('/subscribe', async (req, res) => {
 });
 
 // Endpoint for retrieving checkout session details
-app.get('/retrieve-checkout-session/:sessionId', async (req, res) => {
+app.get('${backendUrl}/retrieve-checkout-session/${sessionId}', async (req, res) => {
   try {
     const sessionId = req.params.sessionId;
     if (!sessionId) {
