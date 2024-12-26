@@ -24,7 +24,7 @@ const courses = [
     title: 'Spanish Speaking Accelerator Course',
     description: 'Start speaking Spanish confidently in just 3 weeks—or your money back!',
     image: ssa,
-    link: '/courses/Group',
+    link: '/courses/Acc',
   },
 ];
 

@@ -15,7 +15,7 @@ const OneonOneCourse = () => {
       id: 1,
       title: 'A1 - Beginner',
       description: 'Start your Spanish journey: Speak confidently from day',
-      price: 216000, 
+      price: 50.000, 
       learnmore:'Embark on an interactive journey that transforms "hola" into meaningful conversations.',
     },
     {
