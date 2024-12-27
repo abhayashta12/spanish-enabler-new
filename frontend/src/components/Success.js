@@ -9,6 +9,7 @@ const Success = () => {
   const [courseDetails, setCourseDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -23,7 +24,7 @@ const Success = () => {
 
   const fetchCourseDetails = async (sessionId) => {
     try {
-      const response = await fetch(`http://localhost:4242/retrieve-checkout-session/${sessionId}`);
+      const response = await fetch(`${API_BASE_URL}/retrieve-checkout-session/${sessionId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch session details');
       }
