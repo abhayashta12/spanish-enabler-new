@@ -82,7 +82,7 @@ const GroupCourse = () => {
     { question: 'What materials are provided with the course?', answer: 'All necessary learning materials, including textbooks and online resources, are included in the course fee.' },
   ];
 
-  const handleCheckout = async (email, courseName, price) => {
+  const handleCheckout = async (courseName, price) => {
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
@@ -91,7 +91,6 @@ const GroupCourse = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
           courseName: courseName,
           price: price,
           originPage: 'Group',
