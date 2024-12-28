@@ -107,6 +107,7 @@ app.post('/create-checkout-session', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
+      
       line_items: [
         {
           price_data: {
@@ -121,7 +122,6 @@ app.post('/create-checkout-session', async (req, res) => {
       ],
       success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
-      customer_email: email,         // Pass customer's email here
       metadata: { courseName },
     });
 
