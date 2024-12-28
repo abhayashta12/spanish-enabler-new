@@ -76,7 +76,7 @@ const OneonOneCourse = () => {
 
   
 
-  const handleCheckout = async (email, courseName, price) => {
+  const handleCheckout = async (courseName, price) => {
     if (!courseName || price === 0) {
       console.error("Missing course name or price.");
       return;
@@ -90,7 +90,6 @@ const OneonOneCourse = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
           courseName: courseName,
           price: price, // Price in cents
           originPage: 'oneonone', // Specify that this request is coming from the OneOnOneCourse page
