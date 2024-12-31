@@ -151,6 +151,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET // Set this in .env
     );
+    
 
     // Handle the event// Mailchimp Newsletter Endpoint
 app.post('/subscribe', async (req, res) => {
