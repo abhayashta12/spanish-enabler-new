@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.static('public'));
-app.use(express.json());
+// app.use(express.json()); _____________________________________
 app.use(morgan('combined')); // Log HTTP requests
 
 // CORS: Restrict origins to the client URL
@@ -133,7 +133,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Webhook Endpoint for Stripe Events
-app.post('/webhook', cors(), express.raw({ type: 'application/json' }), (req, res) => {
+app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   const sig = req.headers['stripe-signature'];
 
   try {
@@ -143,7 +143,124 @@ app.post('/webhook', cors(), express.raw({ type: 'application/json' }), (req, re
       process.env.STRIPE_WEBHOOK_SECRET // Set this in .env
     );
 
-    // Handle the event
+    // Handle the event// Mailchimp Newsletter Endpoint
+app.post('/subscribe', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address.' });
+    }
+
+    const apiKey = process.env.MAILCHIMP_API_KEY;
+    const dataCenter = apiKey.split('-')[1]; // Extract data center from API key
+    const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_LIST_ID}/members`;
+
+    const response = await axios.post(
+      mailchimpUrl,
+      {
+        email_address: email,
+        status: 'subscribed',
+      },
+      {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
+        },
+      }
+    );
+
+    res.status(200).json({ message: 'Subscription successful!' });
+  } catch (error) {
+    console.error(`Mailchimp error: ${error.response?.data || error.message}`);
+    res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
+  }
+});
+
+// Endpoint for retrieving checkout session details
+app.get('/retrieve-checkout-session/:sessionId', async (req, res) => {
+  try {
+    const sessionId = req.params.sessionId;
+
+    if (!sessionId) {
+      return res.status(400).json({ error: 'Session ID is required.' });
+    }
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    res.json({
+      courseName: session.metadata.courseName || 'Unknown Course',
+    });
+  } catch (e) {
+    console.error(`Error retrieving checkout session: ${e.message}`);
+    res.status(500).json({ error: 'Failed to retrieve session details.' });
+  }
+});
+
+// POST endpoint for creating a checkout session
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+    const { courseName, price, originPage } = req.body;
+
+    if (!courseName || !price || isNaN(price)) {
+      return res.status(400).json({ error: 'Invalid course name or price.' });
+    }
+
+    let cancelUrl = `${process.env.CLIENT_URL}#courses`;
+    if (originPage === 'Group') cancelUrl = `${process.env.CLIENT_URL}/courses/Group`;
+    if (originPage === 'oneonone') cancelUrl = `${process.env.CLIENT_URL}/courses/OneonOne`;
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: courseName,
+            },
+            unit_amount: price,
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl,
+      metadata: { courseName },
+    });
+
+    res.json({ url: session.url });
+  } catch (e) {
+    console.error(`Error creating checkout session: ${e.message}`);
+    res.status(500).json({ error: 'Failed to create checkout session.' });
+  }
+});
+
+// Webhook Endpoint for Stripe Events
+app.post('/webhook', cors(), express.raw({ type: 'application/json' }), async (req, res) => {
+  try {
+    const sig = req.headers['stripe-signature'];
+    const event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+
+    switch (event.type) {
+      case 'checkout.session.completed':
+        const session = event.data.object;
+        console.log(`Payment succeeded for session: ${session.id}`);
+        break;
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
+    }
+
+    res.json({ received: true });
+  } catch (err) {
+    console.error(`Webhook Error: ${err.message}`);
+    res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+});
     switch (event.type) {
       case 'checkout.session.completed':
         const session = event.data.object;
