@@ -1,7 +1,7 @@
 require('dotenv').config(); // Load environment variables
 const express = require('express');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// const cors = require('cors');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const axios = require('axios'); // To make HTTP requests
@@ -13,14 +13,14 @@ app.use(express.static('public'));
 // app.use(express.json());
 app.use(morgan('combined')); // Log HTTP requests
 
-// // CORS: Restrict origins to the client URL
-// app.use(cors(
-//     {
-//   origin: process.env.CLIENT_URL,
-//   methods: ['GET', 'POST'],
-//   allowedHeaders: ['Content-Type'],
-// }
-// ));
+// CORS: Restrict origins to the client URL
+app.use(cors(
+    {
+  origin: process.env.CLIENT_URL,
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}
+));
 
 // Rate Limiting: Prevent abuse
 const limiter = rateLimit({
@@ -247,7 +247,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // Webhook Endpoint for Stripe Events
-app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+app.post('/webhook', cors(), express.raw({ type: 'application/json' }), async (req, res) => {
   try {
     const sig = req.headers['stripe-signature'];
     const event = stripe.webhooks.constructEvent(
