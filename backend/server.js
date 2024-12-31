@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.static('public'));
-app.use(express.json());
+// app.use(express.json());
 app.use(morgan('combined')); // Log HTTP requests
 
 // CORS: Restrict origins to the client URL
@@ -32,6 +32,15 @@ app.use(limiter);
 
 // Security Headers
 app.use(helmet());
+
+// Use express.json() for all routes except the /webhook route
+app.use((req, res, next) => {
+  if (req.originalUrl === '/webhook') {
+    next(); // Skip JSON parsing for /webhook
+  } else {
+    express.json()(req, res, next); // Apply express.json() for all other routes
+  }
+});
 
 // Ensure Environment Variables Are Set
 if (!process.env.STRIPE_SECRET_KEY || !process.env.CLIENT_URL || !process.env.STRIPE_WEBHOOK_SECRET) {
