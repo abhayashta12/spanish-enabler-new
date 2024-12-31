@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.static('public'));
-// app.use(express.json()); _____________________________________
+app.use(express.json());
 app.use(morgan('combined')); // Log HTTP requests
 
 // CORS: Restrict origins to the client URL
