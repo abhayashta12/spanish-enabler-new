@@ -242,69 +242,70 @@ const Hero = () => {
       </AnimatePresence>
 
       <section
-        id="hero"
-        className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{
-          backgroundColor: "#f5f0e1",
-          backgroundImage: `url(${david})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+          id="hero"
+          className="relative h-screen bg-cover bg-center flex items-center justify-center"
+    style={{
+    backgroundColor: "#f5f0e1",
+    backgroundImage: `url(${david})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div className="absolute inset-0 bg-black opacity-40"></div>
+  <div className="container mx-auto relative text-center text-white z-10 px-4">
+    <h1 className="text-5xl md:text-6xl font-extrabold mb-8 tracking-wide leading-tight mt-40">
+      WORLD'S #1 SPANISH <br />
+      &nbsp;TEACHING COACH
+    </h1>
+    <div className="flex flex-wrap justify-center items-center gap-4">
+      <a
+        href="https://stan.store/TheSpanishEnabler/p/get-my-ebook-now-aybig"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        <div className="container mx-auto relative text-center text-white z-10">
-          <h1 className="text-6xl font-extrabold mb-8 tracking-wide leading-tight mt-40">
-            WORLD'S #1 SPANISH <br />
-            &nbsp;TEACHING COACH
-          </h1>
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <a
-              href="https://stan.store/TheSpanishEnabler/p/get-my-ebook-now-aybig"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-4 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 animate-gradient">
-                FREE EBOOK
-              </button>
-            </a>
-            <Link to="/courses/OneonOne">
-              <button className="border-2 border-blue-500 hover:bg-blue-500 hover:from-blue-500 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
-                ONE ON ONE COACHING
-              </button>
-            </Link>
-            <Link to="/courses/Group">
-              <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
-                GROUP COACHING
-              </button>
-            </Link>
-            <Link to="/courses/Acc">
-              <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
-                SPANISH ACCELERATOR
-              </button>
-            </Link>
-            <a
-              href="https://www.skool.com/spanish-enablers-pro-5048/about"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
-                SKOOL PRO COMMUNITY
-              </button>
-            </a>
+        <button className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-4 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 animate-gradient w-full sm:w-auto">
+          FREE EBOOK
+        </button>
+      </a>
+      <Link to="/courses/OneonOne">
+        <button className="border-2 border-blue-500 hover:bg-blue-500 hover:from-blue-500 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
+          ONE ON ONE COACHING
+        </button>
+      </Link>
+      <Link to="/courses/Group">
+        <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
+          GROUP COACHING
+        </button>
+      </Link>
+      <Link to="/courses/Acc">
+        <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
+          SPANISH ACCELERATOR
+        </button>
+      </Link>
+      <a
+        href="https://www.skool.com/spanish-enablers-pro-5048/about"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
+          SKOOL PRO COMMUNITY
+        </button>
+      </a>
 
-            <a
-              href=" https://www.skool.com/the-spanish-enablers-3330/about"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-4 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 animate-gradient">
-                SKOOL FREE COMMUNITY
-              </button>
-            </a>
+      <a
+        href=" https://www.skool.com/the-spanish-enablers-3330/about"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-4 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 animate-gradient w-full sm:w-auto">
+          SKOOL FREE COMMUNITY
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
 
-          </div>
-        </div>
-      </section>
+
     </>
   );
 };
