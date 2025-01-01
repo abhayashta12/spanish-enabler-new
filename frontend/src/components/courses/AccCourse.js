@@ -46,7 +46,7 @@ const AccCourse = () => {
         body: JSON.stringify({
           courseName: courseName,
           price: price,
-          originPage: 'Accelerator',
+          originPage: 'Acc',
         }),
       });
 
