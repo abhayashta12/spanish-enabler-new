@@ -152,9 +152,6 @@ const AccCourse = () => {
                   <li>✅ Master verb conjugations so they feel natural in real conversations.</li>
                   <li>✅ Understand native speakers—even when they talk fast or use slang.</li>
                 </ul>
-                <h4 className="font-bold">Real Students, Real Results</h4>
-                <p>Jeremy Parker from Atlanta, GA, says:</p>
-                <blockquote>“I love learning new concepts and instantly applying them in conversations. The visuals on verb conjugations make it so clear and easy.”</blockquote>
                 <h4 className="font-bold">Ready to Transform Your Spanish?</h4>
                 <p>Book a Free Learning Strategy Call with David, The Spanish Enabler, today!</p>
                 <p><strong>What Happens on the Call?</strong></p>

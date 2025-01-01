@@ -125,7 +125,7 @@ const GroupCourse = () => {
     <div className="min-h-screen bg-[#fafafa] relative pb-16">
       {/* Black Friday Floating Banner */}
       <div className="fixed top-0 w-full bg-black text-white text-center py-3 z-50 shadow-md" style={{ top: '80px' }}>
-        🎉 Holiday Special Offer - Limited Time Only! 🎉
+        🎉 Holiday Special Offer - Limited Time Only! APPLY COUPON CODE "SPANISHSPECIAL" 🎉
       </div>
 
       {/* Confetti */}
