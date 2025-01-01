@@ -2,21 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
 
-const AccCourse = () => {
+const GroupCourse = () => {
+  const [expandedFaq, setExpandedFaq] = useState(null);
   const [couponCode, setCouponCode] = useState('');
   const [discountApplied, setDiscountApplied] = useState(false);
   const [discountedPrice, setDiscountedPrice] = useState(80000); // in cents ($800.00)
   const [showConfetti, setShowConfetti] = useState(true);
   const [loading, setLoading] = useState(false);
+
+  // New state for handling popup similar to OneonOneCourse
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
+    // Ensure page starts at top
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
+    // Show confetti instantly and hide after 6 seconds
     const timer = setTimeout(() => {
       setShowConfetti(false);
     }, 6000);
@@ -24,6 +29,7 @@ const AccCourse = () => {
   }, []);
 
   useEffect(() => {
+    // Control body overflow based on popup
     if (selectedCourse) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -34,6 +40,16 @@ const AccCourse = () => {
       document.body.style.overflow = 'unset';
     };
   }, [selectedCourse]);
+
+  
+
+  const faqs = [
+    { question: 'How long does each course last?', answer: 'Each course typically lasts for 8 weeks, with two 1-hour group sessions per week.' },
+    { question: 'How many students are in each group?', answer: 'Our group courses usually have 4-8 students to ensure everyone gets enough attention and practice time.' },
+    { question: 'Can I switch levels during the course?', answer: 'Yes, if you find the course too easy or difficult, we can assess your level and move you to a more suitable group.' },
+    { question: 'Are the lessons conducted online or in-person?', answer: 'We offer both online and in-person group options, depending on your preference and location.' },
+    { question: 'What materials are provided with the course?', answer: 'All necessary learning materials, including textbooks and online resources, are included in the course fee.' },
+  ];
 
   const handleCheckout = async (courseName, price) => {
     setLoading(true);
@@ -74,53 +90,9 @@ const AccCourse = () => {
     }
   };
 
-  const course = {
-    title: 'Spanish Speaking Accelerator',
-    description: `Start Speaking Spanish Confidently in Just 3 Weeks`,
-    price: discountedPrice,
-    highlights: [
-      '❌ “I struggle to understand native speakers—they talk too fast!”',
-      '❌ “I overthink conjugations and freeze when speaking.”',
-      '❌ “I feel insecure about making mistakes, and I hate feeling ‘cringe.’”',
-      '❌ “I’m an introvert. Speaking in front of others is hard.”',
-    ],
-    solution: `You are not alone. These are REAL challenges. But here’s the truth: you can overcome every single one.`,
-    introduction: `Introducing The Spanish Speaking Accelerator Program` +
-      `\nA 40-hour hands-on solution designed to help you:`,
-    benefits: [
-      '✅ Speak Spanish confidently in a safe, supportive space where you feel heard and encouraged.',
-      '✅ Practice daily and stop worrying about mistakes.',
-      '✅ Master verb conjugations so they feel natural in real conversations.',
-      '✅ Understand native speakers—even when they talk fast or use slang.',
-    ],
-    testimonials: [
-      `Real Students, Real Results`,
-      `Jeremy Parker from Atlanta, GA, says:`,
-      `“I love learning new concepts and instantly applying them in conversations. The visuals on verb conjugations make it so clear and easy.”`,
-    ],
-    callToAction: `Ready to Transform Your Spanish?`,
-    callDetails: [
-      'Book a Free Learning Strategy Call with David, The Spanish Enabler, today!',
-      'What Happens on the Call?',
-      '• Talk about your biggest Spanish struggles and goals.',
-      '• Build a step-by-step plan to finally speak Spanish confidently.',
-      '• Discover how the SSA Program can transform your skills in just 3 months.',
-      'No pressure. Just clarity and support.',
-    ],
-    suitability: [
-      `This Course is For You If:`,
-      '✅ You know a lot of Spanish words, but find it hard to put sentences together.',
-      '✅ You understand Spanish but are scared of speaking it.',
-      '✅ You practice alone, but struggle to speak with others.',
-      '✅ You want to improve, but feel stuck and don’t know where to start.',
-      '✅ You wish someone could guide you step-by-step to speak confidently.',
-      '✅ You’re tired of learning on your own and want support from expert coaches.',
-      '✅ You want real conversations that help you finally use what you’ve learned.',
-    ],
-  };
-
   return (
     <div className="min-h-screen bg-[#fafafa] relative pb-16">
+      {/* Black Friday Floating Banner */}
       <div className="fixed top-0 w-full bg-black text-white text-center py-3 z-50 shadow-md" style={{ top: '80px' }}>
         🎉 Holiday Special Offer - Limited Time Only! 🎉
       </div>
@@ -139,54 +111,87 @@ const AccCourse = () => {
       <header className="py-40 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-serif mb-4 text-[#1a1a1a]">
-            Master Spanish with the Accelerator Program
+            Master Spanish with Group Coaching
           </h1>
           <p className="text-lg mb-8 text-[#666666]">
-            Transform your Spanish in just 3 weeks with personalized, practical coaching.
+            Join our group sessions and learn Spanish with peers. Start your journey to fluency today!
           </p>
           <button
             className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors"
-            onClick={() => document.getElementById('course-details').scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('courses').scrollIntoView({ behavior: 'smooth' })}
           >
-            Learn More
+            Explore Courses
           </button>
         </div>
       </header>
 
       <main>
-        <section id="course-details" className="py-20 px-4">
-          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg border border-gray-200 shadow-lg relative">
-            <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4">{course.title}</h2>
-            <p className="text-lg text-[#666666] mb-6">{course.description}</p>
-            <p className="text-3xl font-bold text-green-600 mb-6">
-              Price: ${(discountedPrice / 100).toFixed(2)}
-            </p>
-            <div className="mb-6">
-              <input
-                type="text"
-                placeholder="Enter coupon code"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
-                className="border border-gray-400 p-2 rounded-md w-2/3 mr-2"
-              />
-              <button
-                className="bg-[#1a1a1a] text-white px-4 py-2 rounded-md hover:bg-black transition-colors"
-                onClick={handleApplyCoupon}
-              >
-                Apply Coupon
-              </button>
-            </div>
-            <button
-              className={`w-full bg-[#1a1a1a] text-white py-2.5 rounded-md hover:bg-black transition-colors ${
-                loading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              onClick={() => {
-                setSelectedCourse(course);
-              }}
-              disabled={loading}
+        <section id="courses" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto mb-12">
+            <motion.div
+              className="bg-white p-8 rounded-lg border border-gray-200 shadow-lg relative"
+              whileHover={{ scale: 1.05 }}
             >
-              Enroll Now
-            </button>
+              <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4">Spanish Speaking Accelerator</h2>
+              <p className="text-lg text-[#666666] mb-6">
+                Start speaking Spanish confidently in just 3 weeks—or your money back!
+              </p>
+              <p className="text-3xl font-bold text-green-600 mb-6">
+                Price: ${(discountedPrice / 100).toFixed(2)}
+              </p>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Enter coupon code"
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                  className="border border-gray-400 p-2 rounded-md w-2/3 mr-2"
+                />
+                <button
+                  className="bg-[#1a1a1a] text-white px-4 py-2 rounded-md hover:bg-black transition-colors"
+                  onClick={handleApplyCoupon}
+                >
+                  Apply Coupon
+                </button>
+              </div>
+              <button
+                className={`w-full bg-[#1a1a1a] text-white py-2.5 rounded-md hover:bg-black transition-colors ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                onClick={() => {
+                  setSelectedCourse({
+                    title: 'Spanish Speaking Accelerator',
+                    description: 'Start speaking Spanish confidently in just 3 weeks—or your money back!',
+                    price: discountedPrice
+                  });
+                }}
+                disabled={loading}
+              >
+                Learn More
+              </button>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="py-20 px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-serif mb-12 text-center text-[#1a1a1a]">
+              Frequently Asked Questions
+            </h2>
+            {faqs.map((faq, index) => (
+              <div key={index} className="mb-4 border-b border-gray-200 pb-4">
+                <button
+                  className="flex justify-between items-center w-full text-left font-semibold text-lg text-[#1a1a1a]"
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                >
+                  <span>{faq.question}</span>
+                  <span>{expandedFaq === index ? '−' : '+'}</span>
+                </button>
+                {expandedFaq === index && (
+                  <p className="mt-2 text-[#666666]">{faq.answer}</p>
+                )}
+              </div>
+            ))}
           </div>
         </section>
       </main>
@@ -213,62 +218,44 @@ const AccCourse = () => {
               >
                 ×
               </button>
+              <h3 className="text-2xl font-semibold mb-2">{selectedCourse.title}</h3>
+              <p className="text-[#666666] mb-6">{selectedCourse.description}</p>
               
-
-              {/* DESCRIPTION
-
-              <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg border border-gray-200 shadow-lg relative">
-              <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4">{course.title}</h2>
-            <p className="text-lg text-[#666666] mb-6">{course.introduction}</p>
-            <ul className="list-disc pl-5 mb-6 text-[#1a1a1a]">
-              {course.highlights.map((highlight, index) => (
-                <li key={index}>{highlight}</li>
-              ))}
-            </ul>
-            <p className="text-md text-[#1a1a1a] mb-6 font-semibold">{course.solution}</p>
-            <ul className="list-disc pl-5 mb-6 text-[#1a1a1a]">
-              {course.benefits.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
-            </ul>
-            <blockquote className="italic text-[#666666] mb-6">
-              {course.testimonials.map((testimonial, index) => (
-                <p key={index}>{testimonial}</p>
-              ))}
-            </blockquote>
-            <div className="mb-6">
-              <h4 className="font-semibold mb-4">{course.callToAction}</h4>
-              <ul className="list-disc pl-5 text-sm">
-                {course.callDetails.map((detail, index) => (
-                  <li key={index} className="text-[#1a1a1a]">{detail}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="mb-6">
-              <h4 className="font-semibold mb-4">{course.suitability[0]}</h4>
-              <ul className="list-disc pl-5 text-sm">
-                {course.suitability.slice(1).map((point, index) => (
-                  <li key={index} className="text-[#1a1a1a]">{point}</li>
-                ))}
-              </ul>
-            </div>
               <div className="mb-8">
                 <h4 className="font-semibold mb-4">Benefits:</h4>
                 <ul className="list-disc pl-5 space-y-2 text-sm">
-                  {selectedCourse?.benefits?.map((benefit, index) => (
-                    <li key={index} className="text-[#1a1a1a]">{benefit}</li>
-                  ))}
-                </ul>
+                   <li className="text-[#1a1a1a]">
+                   <strong>Speak Naturally, Fast:</strong> Skip the grammar drills and get straight to speaking with real-time feedback from expert teachers.
+                   </li>
+                   <li className="text-[#1a1a1a]">
+                   <strong>Tailored for You:</strong> Personalized coaching ensures you overcome your unique challenges and see instant progress.
+                   </li>
+                   <li className="text-[#1a1a1a]">
+                   <strong>Practical, Real-World Focus:</strong> Master Spanish for life, work, and travel—no fluff, just skills you’ll actually use.
+                   </li>
+                   </ul><br/>
 
-                <h4 className="font-semibold mb-4 mt-6">Transformation:</h4>
-                <ul className="list-disc pl-5 space-y-2 text-sm">
-                  {selectedCourse.transformation.map((point, index) => (
-                    <li key={index} className="text-[#1a1a1a]">{point}</li>
-                  ))}
-                </ul>
+
+                 <h4 className="font-semibold mb-4">Transformation:</h4>
+                 <ul className="list-disc pl-5 space-y-2 text-sm">
+                   <li className="text-[#1a1a1a]">
+                   <strong>From Stuck to Fluent:</strong> Break through fear and hesitation to confidently hold Spanish conversations anywhere.
+                   </li>
+                   <li className="text-[#1a1a1a]">
+                   <strong>From Awkward to Authentic:</strong>  Speak like a native by practicing real-life scenarios and cultural nuances.
+                   </li>
+                   <li className="text-[#1a1a1a]">
+                   <strong>From Learning Alone to Thriving Together:</strong> Join a vibrant community of learners and unlock fluency faster through collaboration.
+                   </li>
+                   </ul>
+                   <br/>
+
+                   <p className="text-lg text-[#1a1a1a] mb-6 "> <strong>
+                   Why wait? Join now and transform the way you learn Spanish forever!
+                   </strong>
+              </p>
               </div>
-              </div> */}
-
+              
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">
                   ${(selectedCourse.price / 100).toFixed(2)}
@@ -291,4 +278,4 @@ const AccCourse = () => {
   );
 };
 
-export default AccCourse;
+export default GroupCourse;
