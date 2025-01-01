@@ -109,10 +109,10 @@ const AccCourse = () => {
       <header className="py-40 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-serif mb-4 text-[#1a1a1a]">
-            Master Spanish with Group Coaching
+            Master Spanish with Spanish Speaking Accelerator 
           </h1>
           <p className="text-lg mb-8 text-[#666666]">
-            Join our group sessions and learn Spanish with peers. Start your journey to fluency today!
+            Join our recorded sessions and learn Spanish with peers. Start your journey to fluency today!
           </p>
           <button
             className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors"
