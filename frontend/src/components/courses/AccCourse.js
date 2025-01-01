@@ -8,7 +8,7 @@ const AccCourse = () => {
   const [discountedPrice, setDiscountedPrice] = useState(80000); // in cents ($800.00)
   const [showConfetti, setShowConfetti] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState({ benefits: [] });
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -255,7 +255,7 @@ const AccCourse = () => {
               <div className="mb-8">
                 <h4 className="font-semibold mb-4">Benefits:</h4>
                 <ul className="list-disc pl-5 space-y-2 text-sm">
-                  {selectedCourse.benefits.map((benefit, index) => (
+                  {selectedCourse?.benefits?.map((benefit, index) => (
                     <li key={index} className="text-[#1a1a1a]">{benefit}</li>
                   ))}
                 </ul>
