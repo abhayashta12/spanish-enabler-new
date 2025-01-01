@@ -9,7 +9,6 @@ const GroupCourse = () => {
   const [discountedPrice, setDiscountedPrice] = useState(80000); // in cents ($800.00)
   const [showConfetti, setShowConfetti] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [userEmail, setUserEmail] = useState(''); // State for user email
 
   // New state for handling popup similar to OneonOneCourse
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -84,10 +83,6 @@ const GroupCourse = () => {
   ];
 
   const handleCheckout = async (courseName, price) => {
-    if (!userEmail) {
-      alert('Please enter your email before proceeding.');
-      return;
-    }
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
@@ -99,7 +94,6 @@ const GroupCourse = () => {
           courseName: courseName,
           price: price,
           originPage: 'Group',
-          customerEmail: userEmail, // Pass the email to the backend
         }),
       });
 

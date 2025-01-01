@@ -5,7 +5,6 @@ const OneonOneCourse = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const [customPrice, setCustomPrice] = useState(0);
-  const [userEmail, setUserEmail] = useState(""); // State for user email
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -82,10 +81,6 @@ const OneonOneCourse = () => {
       console.error("Missing course name or price.");
       return;
     }
-    if (!userEmail) {
-      alert("Please enter your email before proceeding to checkout.");
-      return;
-    }
 
     try {
       // Sending a request to the backend server to create a Stripe checkout session
@@ -98,7 +93,6 @@ const OneonOneCourse = () => {
           courseName: courseName,
           price: price, // Price in cents
           originPage: 'oneonone', // Specify that this request is coming from the OneOnOneCourse page
-          customerEmail: userEmail,
         }),
       });
 

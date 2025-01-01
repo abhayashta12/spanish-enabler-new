@@ -116,7 +116,6 @@ app.post('/create-checkout-session', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      customer_email: customerEmail,
       
       line_items: [
         {
@@ -152,7 +151,6 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET // Set this in .env
     );
-    
 
     // Handle the event// Mailchimp Newsletter Endpoint
 app.post('/subscribe', async (req, res) => {
