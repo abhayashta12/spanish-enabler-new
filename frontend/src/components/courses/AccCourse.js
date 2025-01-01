@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
 
-const GroupCourse = () => {
+const AccCourse = () => {
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [couponCode, setCouponCode] = useState('');
   const [discountApplied, setDiscountApplied] = useState(false);
@@ -40,8 +40,6 @@ const GroupCourse = () => {
       document.body.style.overflow = 'unset';
     };
   }, [selectedCourse]);
-
-  
 
   const faqs = [
     { question: 'How long does each course last?', answer: 'Each course typically lasts for 8 weeks, with two 1-hour group sessions per week.' },
@@ -134,8 +132,52 @@ const GroupCourse = () => {
             >
               <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4">Spanish Speaking Accelerator</h2>
               <p className="text-lg text-[#666666] mb-6">
-                Start speaking Spanish confidently in just 3 weeks—or your money back!
+                Start Speaking Spanish Confidently in Just 3 Weeks
               </p>
+              <div className="text-sm text-[#1a1a1a] mb-6 space-y-2">
+                <p>Does this sound like you?</p>
+                <ul className="list-disc pl-5">
+                  <li>❌ “I struggle to understand native speakers—they talk too fast!”</li>
+                  <li>❌ “I overthink conjugations and freeze when speaking.”</li>
+                  <li>❌ “I feel insecure about making mistakes, and I hate feeling ‘cringe.’”</li>
+                  <li>❌ “I’m an introvert. Speaking in front of others is hard.”</li>
+                </ul>
+                <p>You are not alone. These are REAL challenges.</p>
+                <p>But here’s the truth: you can overcome every single one.</p>
+                <h4 className="font-bold">Introducing The Spanish Speaking Accelerator Program</h4>
+                <p>A 40-hour hands-on solution designed to help you:</p>
+                <ul className="list-disc pl-5">
+                  <li>✅ Speak Spanish confidently in a safe, supportive space where you feel heard and encouraged.</li>
+                  <li>✅ Practice daily and stop worrying about mistakes.</li>
+                  <li>✅ Master verb conjugations so they feel natural in real conversations.</li>
+                  <li>✅ Understand native speakers—even when they talk fast or use slang.</li>
+                </ul>
+                <h4 className="font-bold">Real Students, Real Results</h4>
+                <p>Jeremy Parker from Atlanta, GA, says:</p>
+                <blockquote>“I love learning new concepts and instantly applying them in conversations. The visuals on verb conjugations make it so clear and easy.”</blockquote>
+                <h4 className="font-bold">Ready to Transform Your Spanish?</h4>
+                <p>Book a Free Learning Strategy Call with David, The Spanish Enabler, today!</p>
+                <p><strong>What Happens on the Call?</strong></p>
+                <ul className="list-disc pl-5">
+                  <li>Talk about your biggest Spanish struggles and goals.</li>
+                  <li>Build a step-by-step plan to finally speak Spanish confidently.</li>
+                  <li>Discover how the SSA Program can transform your skills in just 3 months.</li>
+                </ul>
+                <p>No pressure. Just clarity and support.</p>
+                <h4 className="font-bold">This Course is For You If:</h4>
+                <ul className="list-disc pl-5">
+                  <li>✅ You know a lot of Spanish words, but find it hard to put sentences together.</li>
+                  <li>✅ You understand Spanish but are scared of speaking it.</li>
+                  <li>✅ You practice alone, but struggle to speak with others.</li>
+                  <li>✅ You want to improve, but feel stuck and don’t know where to start.</li>
+                  <li>✅ You wish someone could guide you step-by-step to speak confidently.</li>
+                  <li>✅ You’re tired of learning on your own and want support from expert coaches.</li>
+                  <li>✅ You want real conversations that help you finally use what you’ve learned.</li>
+                </ul>
+                <p>Ready to Speak Spanish with Confidence?</p>
+                <p>Enrol Today and Start Your Transformation!</p>
+                <p>Or Book a Free Learning Strategy Call to get started.</p>
+              </div>
               <p className="text-3xl font-bold text-green-600 mb-6">
                 Price: ${(discountedPrice / 100).toFixed(2)}
               </p>
@@ -161,7 +203,7 @@ const GroupCourse = () => {
                 onClick={() => {
                   setSelectedCourse({
                     title: 'Spanish Speaking Accelerator',
-                    description: 'Start speaking Spanish confidently in just 3 weeks—or your money back!',
+                    description: 'Start Speaking Spanish Confidently in Just 3 Weeks',
                     price: discountedPrice
                   });
                 }}
@@ -221,41 +263,6 @@ const GroupCourse = () => {
               <h3 className="text-2xl font-semibold mb-2">{selectedCourse.title}</h3>
               <p className="text-[#666666] mb-6">{selectedCourse.description}</p>
               
-              <div className="mb-8">
-                <h4 className="font-semibold mb-4">Benefits:</h4>
-                <ul className="list-disc pl-5 space-y-2 text-sm">
-                   <li className="text-[#1a1a1a]">
-                   <strong>Speak Naturally, Fast:</strong> Skip the grammar drills and get straight to speaking with real-time feedback from expert teachers.
-                   </li>
-                   <li className="text-[#1a1a1a]">
-                   <strong>Tailored for You:</strong> Personalized coaching ensures you overcome your unique challenges and see instant progress.
-                   </li>
-                   <li className="text-[#1a1a1a]">
-                   <strong>Practical, Real-World Focus:</strong> Master Spanish for life, work, and travel—no fluff, just skills you’ll actually use.
-                   </li>
-                   </ul><br/>
-
-
-                 <h4 className="font-semibold mb-4">Transformation:</h4>
-                 <ul className="list-disc pl-5 space-y-2 text-sm">
-                   <li className="text-[#1a1a1a]">
-                   <strong>From Stuck to Fluent:</strong> Break through fear and hesitation to confidently hold Spanish conversations anywhere.
-                   </li>
-                   <li className="text-[#1a1a1a]">
-                   <strong>From Awkward to Authentic:</strong>  Speak like a native by practicing real-life scenarios and cultural nuances.
-                   </li>
-                   <li className="text-[#1a1a1a]">
-                   <strong>From Learning Alone to Thriving Together:</strong> Join a vibrant community of learners and unlock fluency faster through collaboration.
-                   </li>
-                   </ul>
-                   <br/>
-
-                   <p className="text-lg text-[#1a1a1a] mb-6 "> <strong>
-                   Why wait? Join now and transform the way you learn Spanish forever!
-                   </strong>
-              </p>
-              </div>
-              
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">
                   ${(selectedCourse.price / 100).toFixed(2)}
@@ -278,4 +285,4 @@ const GroupCourse = () => {
   );
 };
 
-export default GroupCourse;
+export default AccCourse;
