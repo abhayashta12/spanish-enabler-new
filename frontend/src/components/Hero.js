@@ -277,6 +277,31 @@ const Hero = () => {
                 GROUP COACHING
               </button>
             </Link>
+            <Link to="/courses/Acc">
+              <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
+                SPANISH ACCELERATOR
+              </button>
+            </Link>
+            <a
+              href="https://www.skool.com/spanish-enablers-pro-5048/about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300">
+                SKOOL PRO COMMUNITY
+              </button>
+            </a>
+
+            <a
+              href=" https://www.skool.com/the-spanish-enablers-3330/about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-4 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 animate-gradient">
+                SKOOL FREE COMMUNITY
+              </button>
+            </a>
+
           </div>
         </div>
       </section>
