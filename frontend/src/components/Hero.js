@@ -241,10 +241,12 @@ const Hero = () => {
         )}
       </AnimatePresence>
 
+
+
       <section
-          id="hero"
-          className="relative h-screen bg-cover bg-center flex items-center justify-center"
-    style={{
+  id="hero"
+  className="relative h-screen bg-cover bg-center flex items-center justify-center"
+  style={{
     backgroundColor: "#f5f0e1",
     backgroundImage: `url(${david})`,
     backgroundSize: "cover",
@@ -257,7 +259,7 @@ const Hero = () => {
       WORLD'S #1 SPANISH <br />
       &nbsp;TEACHING COACH
     </h1>
-    <div className="flex flex-wrap justify-center items-center gap-4">
+    <div className="flex flex-wrap justify-center items-center gap-4 max-w-[90%] mx-auto">
       <a
         href="https://stan.store/TheSpanishEnabler/p/get-my-ebook-now-aybig"
         target="_blank"
@@ -304,6 +306,8 @@ const Hero = () => {
     </div>
   </div>
 </section>
+
+
 
 
     </>
