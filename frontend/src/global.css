@@ -81,7 +81,7 @@
       padding: 20px;
     }
     .container {
-      padding: 0 10px;
+      padding: 0 6px;
     }
     .flex-wrap {
       gap: 8px; /* Reduce gap on smaller screens */
