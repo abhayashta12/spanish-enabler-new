@@ -76,4 +76,15 @@
     }
   }
   
+  @media (max-width: 768px) {
+    #hero {
+      padding: 20px;
+    }
+    .container {
+      padding: 0 10px;
+    }
+    .flex-wrap {
+      gap: 8px; /* Reduce gap on smaller screens */
+    }
+  }
   
