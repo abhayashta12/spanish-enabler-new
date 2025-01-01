@@ -8,7 +8,7 @@ const AccCourse = () => {
   const [discountedPrice, setDiscountedPrice] = useState(80000); // in cents ($800.00)
   const [showConfetti, setShowConfetti] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState({ benefits: [] });
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -215,7 +215,7 @@ const AccCourse = () => {
               </button>
               
 
-              {/* DESCRIPTION */}
+              {/* DESCRIPTION
 
               <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg border border-gray-200 shadow-lg relative">
               <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4">{course.title}</h2>
@@ -267,7 +267,7 @@ const AccCourse = () => {
                   ))}
                 </ul>
               </div>
-              </div>
+              </div> */}
 
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">
