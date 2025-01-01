@@ -8,7 +8,6 @@ const OneonOneCourse = () => {
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-
   // Define courses as an array of objects
   const courses = [
     {
@@ -74,8 +73,6 @@ const OneonOneCourse = () => {
     };
   }, [selectedCourse]);
 
-  
-
   const handleCheckout = async (courseName, price) => {
     if (!courseName || price === 0) {
       console.error("Missing course name or price.");
@@ -93,7 +90,6 @@ const OneonOneCourse = () => {
           courseName: courseName,
           price: price, // Price in cents
           originPage: 'oneonone', // Specify that this request is coming from the OneOnOneCourse page
-          
         }),
       });
 
@@ -180,18 +176,18 @@ const OneonOneCourse = () => {
                         <option value="">Select a package</option>
                         {course.priceOptions.map((option, index) => (
                           <option key={index} value={option.label}>
-                            {option.label} - ${(option.price / 100).toFixed(2)}
+                            {option.label} - ${(option.price / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                           </option>
                         ))}
                       </select>
                       {selectedOption && (
                         <p className="text-2xl font-bold mb-6 text-[#1a1a1a]">
-                          ${((customPrice || 0) / 100).toFixed(2)}
+                          ${(customPrice / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                         </p>
                       )}
                     </>
                   ) : (
-                    <p className="text-2xl font-bold mb-6 text-[#1a1a1a]">${(course.price / 100).toFixed(2)}</p>
+                    <p className="text-2xl font-bold mb-6 text-[#1a1a1a]">${(course.price / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
                   )}
                   <button
                     className="w-full bg-[#1a1a1a] text-white py-2.5 rounded-md hover:bg-black transition-colors"
@@ -246,7 +242,7 @@ const OneonOneCourse = () => {
               
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">
-                  ${selectedCourse && selectedCourse.id === 5 && customPrice ? (customPrice / 100).toFixed(2) : (selectedCourse?.price / 100).toFixed(2)}
+                  ${selectedCourse && selectedCourse.id === 5 && customPrice ? (customPrice / 100).toLocaleString(undefined, { minimumFractionDigits: 2 }) : (selectedCourse?.price / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </p>
                 <motion.button
                   className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors"
