@@ -16,7 +16,7 @@ import 'aos/dist/aos.css';
 import Stats from './components/Stats';
 import Resources from './components/Resources'
 import Success from './components/Success'
-// import AccCourse from './components/courses/AccCourse';
+import AccCourse from './components/courses/AccCourse';
 
 function App() {
   useEffect(() => {
@@ -48,7 +48,7 @@ function App() {
         {/* Course Detail Routes */}
         <Route path="/courses/OneonOne" element={<OneonOneCourse />} />
         <Route path="/courses/Group" element={<GroupCourse />} />
-        {/* <Route path="/courses/Acc" element={<AccCourse />} /> */}
+        <Route path="/courses/Acc" element={<AccCourse />} />
         <Route path="/success" element={<Success/>}/>
       </Routes>
     </Router>
