@@ -9,6 +9,7 @@ const AccCourse = () => {
   const [discountedPrice, setDiscountedPrice] = useState(80000); // in cents ($800.00)
   const [showConfetti, setShowConfetti] = useState(true);
   const [loading, setLoading] = useState(false);
+  
 
   // New state for handling popup similar to OneonOneCourse
   const [selectedCourse, setSelectedCourse] = useState(null);

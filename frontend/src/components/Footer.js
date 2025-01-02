@@ -56,21 +56,7 @@ const Footer = () => {
               <FaInstagram className="text-xl hover:text-yellow-500 transition-colors duration-300" />
             </a>
             <a
-              href="https://twitter.com/yourprofile"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTwitter className="text-xl hover:text-yellow-500 transition-colors duration-300" />
-            </a>
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedin className="text-xl hover:text-yellow-500 transition-colors duration-300" />
-            </a>
-            <a
-              href="https://www.youtube.com"
+              href="https://www.youtube.com/@TheSpanishEnabler/videos"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -137,13 +123,13 @@ const Footer = () => {
         <div className="text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Spanish Enabler. All Rights Reserved.</p>
           <p className="space-x-2">
-            <a href="#privacy" className="hover:text-white hover:underline">
+            {/* <a href="#privacy" className="hover:text-white hover:underline">
               Privacy Policy
             </a>
             <span>|</span>
             <a href="#terms" className="hover:text-white hover:underline">
               Terms of Service
-            </a>
+            </a> */}
           </p>
         </div>
       </div>
