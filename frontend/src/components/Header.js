@@ -1,7 +1,7 @@
 // src/components/Header.js
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import logo from '../assets/spanish.png';
 
 const Header = () => {
@@ -13,6 +13,11 @@ const Header = () => {
       top: 0,
       behavior: 'smooth',
     });
+  };
+
+  // Close menu on link click
+  const handleLinkClick = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -31,38 +36,42 @@ const Header = () => {
 
         {/* Navigation Links */}
         <ul
-          className={`md:flex space-x-4 transition-all duration-300 ease-in-out ${
-            menuOpen ? 'block' : 'hidden'
+          className={`fixed md:static md:flex top-0 left-0 w-full md:w-auto bg-white h-screen md:h-auto md:bg-transparent z-40 flex-col md:flex-row items-center justify-center md:space-x-4 shadow-lg md:shadow-none transition-all duration-300 ease-in-out ${
+            menuOpen ? 'flex' : 'hidden'
           } md:block`}
         >
-          <li>
+          <li className="py-4 md:py-0">
             <a
               href="#about"
-              className="block px-4 py-2 text-center hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              className="block px-4 py-2 text-center text-lg hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              onClick={handleLinkClick}
             >
               About
             </a>
           </li>
-          <li>
+          <li className="py-4 md:py-0">
             <a
               href="#courses"
-              className="block px-4 py-2 text-center hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              className="block px-4 py-2 text-center text-lg hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              onClick={handleLinkClick}
             >
               Courses
             </a>
           </li>
-          <li>
+          <li className="py-4 md:py-0">
             <a
               href="#testimonials"
-              className="block px-4 py-2 text-center hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              className="block px-4 py-2 text-center text-lg hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              onClick={handleLinkClick}
             >
               Testimonials
             </a>
           </li>
-          <li>
+          <li className="py-4 md:py-0">
             <a
               href="#contact"
-              className="block px-4 py-2 text-center hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              className="block px-4 py-2 text-center text-lg hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+              onClick={handleLinkClick}
             >
               Contact
             </a>
@@ -71,7 +80,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-black focus:outline-none"
+          className="md:hidden text-black focus:outline-none bg-gray-200 rounded-md p-2 z-50"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
