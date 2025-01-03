@@ -75,3 +75,51 @@
       line-height: 1.4;
     }
   }
+ 
+  /* STATS */
+
+.stats-section {
+  padding: 3rem 0; /* Adds spacing around the section */
+  background: linear-gradient(to right, #f7fafc, #edf2f7); /* Gradient background */
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to one column */
+  gap: 2rem; /* Add spacing between items */
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr); /* Three columns for medium+ screens */
+  }
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+.stats-item:hover {
+  transform: scale(1.05);
+}
+
+.stats-icon {
+  color: #2d3748; /* Dark gray */
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+.stats-number {
+  font-size: 2rem; /* Text size for numbers */
+  font-weight: bold;
+  color: #2d3748; /* Dark gray */
+  margin-bottom: 0.5rem;
+}
+
+.stats-label {
+  font-size: 1rem; /* Text size for labels */
+  color: #718096; /* Light gray */
+}

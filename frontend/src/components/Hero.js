@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import david from "../assets/david.png";
+import david from "../assets/david.webp";
  
 
 const Hero = () => {
