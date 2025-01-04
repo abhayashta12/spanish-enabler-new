@@ -269,7 +269,7 @@ const Hero = () => {
           FREE EBOOK
         </button>
       </a>
-      <Link to="/courses/OneonOne">
+      {/* <Link to="/courses/OneonOne">
         <button className="border-2 border-blue-500 hover:bg-blue-500 hover:from-blue-500 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
           ONE ON ONE COACHING
         </button>
@@ -283,7 +283,7 @@ const Hero = () => {
         <button className="border-2 border-blue-500 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full m-2 transition-all duration-300 w-full sm:w-auto">
           SPANISH ACCELERATOR
         </button>
-      </Link>
+      </Link> */}
       <a
         href="https://www.skool.com/spanish-enablers-pro-5048/about"
         target="_blank"
