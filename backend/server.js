@@ -148,7 +148,7 @@ app.post('/webhook', cors(), express.raw({ type: 'application/json' }), (req, re
   try {
     const event = stripe.webhooks.constructEvent(
       req.body,
-      sig,
+      // sig,
       process.env.STRIPE_WEBHOOK_SECRET // Set this in .env
     );
 
@@ -260,7 +260,7 @@ app.post('/webhook', cors(), express.raw({ type: 'application/json' }), async (r
   try {
     const event = stripe.webhooks.constructEvent(
       req.body,
-      sig,
+      // sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
 
