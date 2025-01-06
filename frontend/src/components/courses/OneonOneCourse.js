@@ -21,7 +21,7 @@ const OneonOneCourse = () => {
       id: 2,
       title: 'A2 - Elementary',
       description: 'Build your foundation: Speak Spanish like it’s second',
-      price: 50, 
+      price: 270000, 
       learnmore:'Gain practical skills and confidence to navigate everyday situations effortlessly.'
     },
     {
