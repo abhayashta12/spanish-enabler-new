@@ -247,10 +247,15 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // Webhook Endpoint for Stripe Events
 app.post('/webhook', cors(), express.raw({ type: 'application/json' }), async (req, res) => {
-  const sig = req.headers['stripe-signature'];
   console.log(`Request received at /webhook`);
   console.log(`Headers:`, req.headers);
   console.log(`Body:`, req.body);
+  
+  const sig = req.headers['stripe-signature'];
+  if (!sig) {
+    console.error('No stripe-signature header provided');
+    return res.status(400).send('Webhook Error: No stripe-signature header value was provided.');
+  }
 
   try {
     const event = stripe.webhooks.constructEvent(
