@@ -257,7 +257,7 @@ const Hero = () => {
   <div className="container mx-auto relative text-center text-white z-10 px-4">
     <h1 className="text-5xl md:text-6xl font-extrabold mb-8 tracking-wide leading-tight mt-40">
       WORLD'S #1 SPANISH <br />
-      &nbsp;TEACHING COACH
+      &nbsp;LANGUAGE COACH
     </h1>
     <div className="flex flex-wrap justify-center items-center gap-4 max-w-[90%] mx-auto">
       <a
