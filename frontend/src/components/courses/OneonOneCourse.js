@@ -12,8 +12,9 @@ const OneonOneCourse = () => {
   const courses = [
     {
       id: 1,
-      title: 'A1 - Beginner',
+      title: 'A1 - Beginner - (40 units)',
       description: 'Start your Spanish journey: Speak confidently from day',
+      hours:'40 Units = 80 Hours X $27',
       price: 216000, 
       learnmore:'Embark on an interactive journey that transforms "hola" into meaningful conversations.',
     },
@@ -21,6 +22,7 @@ const OneonOneCourse = () => {
       id: 2,
       title: 'A2 - Elementary',
       description: 'Build your foundation: Speak Spanish like it’s second',
+      hours:'50 Units = 100 Hours X $27',
       price: 270000, 
       learnmore:'Gain practical skills and confidence to navigate everyday situations effortlessly.'
     },
@@ -28,6 +30,7 @@ const OneonOneCourse = () => {
       id: 3,
       title: 'B1 - Intermediate',
       description: 'Find your voice: Express your ideas and connect with Spanish speakers.',
+      hours:'60 Units = 120 Hours X $27',
       price: 324000,
       learnmore:'Immerse yourself in dynamic content that boosts your speaking and comprehension skills.'
     },
@@ -35,6 +38,7 @@ const OneonOneCourse = () => {
       id: 4,
       title: 'B2 Level Intermediate',
       description: 'Master the art of conversation—speak Spanish with nuance and flair',
+      hours:'75 Units = 150 Hours X $27',
       price: 405000, 
       learnmore:'Refine your abilities with advanced topics and authentic cultural experiences.'
     },
@@ -163,6 +167,7 @@ const OneonOneCourse = () => {
                 >
                   <h3 className="text-xl font-semibold mb-2 text-[#1a1a1a]">{course.title}</h3>
                   <p className="text-[#666666] mb-6">{course.description}</p>
+                  <p className="text-[#666666] font-semibold mb-6">{course.hours}</p>
                   {course.id === 5 ? (
                     <>
                       <select
