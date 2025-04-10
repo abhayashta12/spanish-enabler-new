@@ -106,8 +106,20 @@ const Header = () => {
               Contact
             </button>
           </li>
-        </ul>
 
+          {/* UGC */}
+          <li className="py-4 md:py-0">
+            <Link
+            to = "/ugc"
+              onClick={() => handleNavLinkClick('ugc')}
+              className="block px-4 py-2 text-center text-lg hover:text-black hover:font-bold hover:bg-yellow-100 transition duration-300 ease-in-out"
+            >
+              UGC
+            </Link>
+          </li>
+
+        </ul>
+        
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-black focus:outline-none bg-gray-200 rounded-md p-2 z-50"

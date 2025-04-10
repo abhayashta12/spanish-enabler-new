@@ -12,38 +12,6 @@ const OneonOneCourse = () => {
   const courses = [
     {
       id: 1,
-      title: 'A1 - Beginner - (40 units)',
-      description: 'Start your Spanish journey: Speak confidently from day',
-      hours:'40 Units = 80 Hours X $27',
-      price: 216000, 
-      learnmore:'Embark on an interactive journey that transforms "hola" into meaningful conversations.',
-    },
-    {
-      id: 2,
-      title: 'A2 - Elementary',
-      description: 'Build your foundation: Speak Spanish like it’s second',
-      hours:'50 Units = 100 Hours X $27',
-      price: 270000, 
-      learnmore:'Gain practical skills and confidence to navigate everyday situations effortlessly.'
-    },
-    {
-      id: 3,
-      title: 'B1 - Intermediate',
-      description: 'Find your voice: Express your ideas and connect with Spanish speakers.',
-      hours:'60 Units = 120 Hours X $27',
-      price: 324000,
-      learnmore:'Immerse yourself in dynamic content that boosts your speaking and comprehension skills.'
-    },
-    {
-      id: 4,
-      title: 'B2 Level Intermediate',
-      description: 'Master the art of conversation—speak Spanish with nuance and flair',
-      hours:'75 Units = 150 Hours X $27',
-      price: 405000, 
-      learnmore:'Refine your abilities with advanced topics and authentic cultural experiences.'
-    },
-    {
-      id: 5,
       title: 'Custom Advanced',
       description: 'Learn the basics of Custom Advanced.',
       learnmore:'Refine your abilities with advanced topics and authentic cultural experiences.',
@@ -61,6 +29,38 @@ const OneonOneCourse = () => {
           price: 76500, // $765.00 in cents
         },
       ],
+    },
+    {
+      id: 2,
+      title: 'A1 - Beginner - (40 units)',
+      description: 'Start your Spanish journey: Speak confidently from day',
+      hours:'40 Units = 80 Hours X $27',
+      price: 216000, 
+      learnmore:'Embark on an interactive journey that transforms "hola" into meaningful conversations.',
+    },
+    {
+      id: 3,
+      title: 'A2 - Elementary',
+      description: 'Build your foundation: Speak Spanish like it’s second',
+      hours:'50 Units = 100 Hours X $27',
+      price: 270000, 
+      learnmore:'Gain practical skills and confidence to navigate everyday situations effortlessly.'
+    },
+    {
+      id: 4,
+      title: 'B1 - Intermediate',
+      description: 'Find your voice: Express your ideas and connect with Spanish speakers.',
+      hours:'60 Units = 120 Hours X $27',
+      price: 324000,
+      learnmore:'Immerse yourself in dynamic content that boosts your speaking and comprehension skills.'
+    },
+    {
+      id: 5,
+      title: 'B2 Level Intermediate',
+      description: 'Master the art of conversation—speak Spanish with nuance and flair',
+      hours:'75 Units = 150 Hours X $27',
+      price: 405000, 
+      learnmore:'Refine your abilities with advanced topics and authentic cultural experiences.'
     },
   ];
 
@@ -168,7 +168,7 @@ const OneonOneCourse = () => {
                   <h3 className="text-xl font-semibold mb-2 text-[#1a1a1a]">{course.title}</h3>
                   <p className="text-[#666666] mb-6">{course.description}</p>
                   <p className="text-[#666666] font-semibold mb-6">{course.hours}</p>
-                  {course.id === 5 ? (
+                  {course.id === 1 ? (
                     <>
                       <select
                         className="mb-4 border border-gray-300 p-2 rounded-md w-full"
@@ -197,9 +197,9 @@ const OneonOneCourse = () => {
                   <button
                     className="w-full bg-[#1a1a1a] text-white py-2.5 rounded-md hover:bg-black transition-colors"
                     onClick={() => {
-                      if (course.id === 5 && selectedOption) {
+                      if (course.id === 1 && selectedOption) {
                         setSelectedCourse(course);
-                      } else if (course.id !== 5) {
+                      } else if (course.id !== 1) {
                         setSelectedCourse(course);
                       }
                     }}
@@ -247,14 +247,14 @@ const OneonOneCourse = () => {
               
               <div className="flex items-center justify-between">
                 <p className="text-2xl font-bold">
-                  ${selectedCourse && selectedCourse.id === 5 && customPrice ? (customPrice / 100).toLocaleString(undefined, { minimumFractionDigits: 2 }) : (selectedCourse?.price / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                  ${selectedCourse && selectedCourse.id === 1 && customPrice ? (customPrice / 100).toLocaleString(undefined, { minimumFractionDigits: 2 }) : (selectedCourse?.price / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </p>
                 <motion.button
                   className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-md hover:bg-black transition-colors"
-                  onClick={() => handleCheckout(selectedCourse?.title, selectedCourse?.id === 5 ? customPrice : selectedCourse?.price)}
+                  onClick={() => handleCheckout(selectedCourse?.title, selectedCourse?.id === 1 ? customPrice : selectedCourse?.price)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  disabled={selectedCourse && selectedCourse.id === 5 && !customPrice}
+                  disabled={selectedCourse && selectedCourse.id === 1 && !customPrice}
                 >
                   Enroll Now
                 </motion.button>
