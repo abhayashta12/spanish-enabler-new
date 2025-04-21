@@ -19,7 +19,7 @@ import Success from './components/Success'
 import AccCourse from './components/courses/AccCourse';
 import UGCLandingPage from './components/Ugc/Ug';
 import VerbsGuidePage from './components/Leadgen/verbsGuide'
-import ExpressionsPage from './components/Leadgen/mistakes'
+import ExpressionsPage from './components/Leadgen/expressions'
 import MistakesPage from './components/Leadgen/mistakes';
 
 
