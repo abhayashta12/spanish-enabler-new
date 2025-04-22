@@ -20,6 +20,7 @@ import AccCourse from './components/courses/AccCourse';
 import UGCLandingPage from './components/Ugc/Ug';
 import MistakesPage from './components/Leadgen/mistakes'
 import VerbsGuidePage from './components/VerbsGuide'
+import ExpressionsPage from './components/Leadgen/expressions';
 
 
 
@@ -58,6 +59,7 @@ function App() {
         <Route path="/ugc" element={<UGCLandingPage />} />
         <Route path="/mistakes" element={<MistakesPage />} />
         <Route path="/verbs" element={<VerbsGuidePage />} />
+        <Route path="/expressions" element={<ExpressionsPage />} />
       </Routes>
     </Router>
   );
