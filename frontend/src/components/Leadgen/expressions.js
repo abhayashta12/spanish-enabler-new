@@ -5,7 +5,7 @@ import "./verbsGuide.css"
 import Expressionss from '../../assets/expressions.png';
 
 
-function ExpressionsPage() {
+function Expressions() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -124,4 +124,4 @@ function ExpressionsPage() {
   )
 }
 
-export default ExpressionsPage
+export default Expressions
