@@ -36,7 +36,7 @@ function MistakesPage() {
               <h1 className="main-title">
                 Discover 20 Common Mistakes
                 <br />
-                <span className="title-second-line">Spanish Learners Make — for FREE</span>
+                <span className="title-second-line">Spanish Learners Make for FREE</span>
               </h1>
             </div>
 

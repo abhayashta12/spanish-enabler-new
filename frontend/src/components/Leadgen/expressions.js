@@ -35,7 +35,7 @@ function Expressions() {
              <h1 className="main-title">
                 Get The Top 50 Most Common Spanish
                 <br />
-                <span className="title-second-line">Expressions — for FREE</span>
+                <span className="title-second-line">Expressions for FREE</span>
               </h1>
             </div>
 

@@ -35,7 +35,7 @@ function VerbsGuidePage() {
              <h1 className="main-title">
                 Get The Top 50 Spanish Verbs
                 <br />
-                <span className="title-second-line">for Beginners — for FREE</span>
+                <span className="title-second-line">for Beginners for FREE</span>
               </h1>
             </div>
 
