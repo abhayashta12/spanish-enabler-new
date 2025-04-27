@@ -1,11 +1,18 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
+import "./styles.css"
+import TajMahal from "../../assets/tajmahal.png";
+import DavidPhoto from "../../assets/gelato.png";
 
 // PhoneVideo Component
 function PhoneVideo({ videoSrc, title, client, delay = 0 }) {
   const [isInView, setIsInView] = useState(false)
-  const videoRef = useRef(null)
+  const containerRef = useRef(null)
+  const iframeRef = useRef(null)
+
+  // Check if the video URL is a Loom URL
+  const isLoomVideo = videoSrc.includes("loom.com")
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -13,38 +20,63 @@ function PhoneVideo({ videoSrc, title, client, delay = 0 }) {
         setIsInView(entry.isIntersecting)
       },
       {
-        threshold: 0.5,
+        threshold: 0.3,
+        rootMargin: "0px 0px -100px 0px",
       },
     )
 
-    if (videoRef.current) {
-      observer.observe(videoRef.current)
-    }
+    if (containerRef.current) {
+     }
 
     return () => {
-      if (videoRef.current) {
-        observer.unobserve(videoRef.current)
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current)
       }
     }
   }, [])
 
+  // Handle Loom video playback
   useEffect(() => {
-    if (videoRef.current) {
-      if (isInView) {
-        videoRef.current.play().catch((error) => {
-          console.error("Error playing video:", error)
-        })
-      } else {
-        videoRef.current.pause()
-      }
+    if (isLoomVideo && iframeRef.current && isInView) {
     }
-  }, [isInView])
+  }, [isInView, isLoomVideo])
+
+  // Determine appropriate sticky top position based on screen size
+  const getStickyTopPosition = () => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth <= 360) return "1rem"
+      if (window.innerWidth <= 576) return "2rem"
+      if (window.innerWidth <= 768) return "3rem"
+      return "6rem"
+    }
+    return "6rem" // Default
+  }
+
+  // Convert a regular Loom URL to an embed URL if needed
+  const getLoomEmbedUrl = (url) => {
+    if (url.includes("/embed/")) {
+      return url
+    }
+
+    // Handle different Loom URL formats
+    if (url.includes("/share/")) {
+      return url.replace("/share/", "/embed/")
+    }
+
+    // Extract the video ID from the URL
+    const matches = url.match(/loom\.com\/([\w-]+\/)+([a-zA-Z0-9]+)/)
+    if (matches && matches[2]) {
+      return `https://www.loom.com/embed/${matches[2]}`
+    }
+
+    return url
+  }
 
   return (
-    <div className="relative min-h-[700px]">
-      <div className="sticky top-24">
+    <div ref={containerRef} className="min-h-700 relative">
+      <div className="sticky" style={{ top: getStickyTopPosition() }}>
         <div
-          className="phone-frame mx-auto"
+          className="phone-frame"
           style={{
             opacity: 0,
             transform: "translateY(20px)",
@@ -53,9 +85,27 @@ function PhoneVideo({ videoSrc, title, client, delay = 0 }) {
         >
           <div className="phone-notch"></div>
           <div className="phone-screen">
-            <video ref={videoRef} muted loop playsInline className="w-full h-full object-cover">
-              <source src={videoSrc} type="video/mp4" />
-            </video>
+            {isLoomVideo ? (
+              <iframe
+                ref={iframeRef}
+                src={getLoomEmbedUrl(videoSrc)}
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                style={{ width: "100%", height: "100%" }}
+              ></iframe>
+            ) : (
+              <video
+                autoPlay={isInView}
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+                poster="/placeholder.svg?height=600&width=400"
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            )}
           </div>
           <div className="phone-home-button"></div>
         </div>
@@ -117,25 +167,6 @@ function InstagramIcon() {
   )
 }
 
-function YoutubeIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
-      <path d="m10 15 5-3-5-3z"></path>
-    </svg>
-  )
-}
-
 function ArrowRightIcon() {
   return (
     <svg
@@ -148,6 +179,7 @@ function ArrowRightIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      className="rotate-90"
     >
       <path d="M5 12h14"></path>
       <path d="m12 5 7 7-7 7"></path>
@@ -155,23 +187,7 @@ function ArrowRightIcon() {
   )
 }
 
-function PlayIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="5 3 19 12 5 21 5 3"></polygon>
-    </svg>
-  )
-}
+
 
 // Button Component
 function Button({ children, className, variant = "primary", size = "md", onClick }) {
@@ -190,61 +206,18 @@ function Button({ children, className, variant = "primary", size = "md", onClick
 // Main Portfolio Component
 function UGCPortfolio() {
   const [activeTab, setActiveTab] = useState("all")
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200)
   const heroRef = useRef(null)
 
-  const workItems = [
-    {
-      id: 1,
-      title: "Brand Campaign",
-      client: "Fashion Brand",
-      type: "video",
-      category: "fashion",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-    {
-      id: 2,
-      title: "Product Launch",
-      client: "Tech Company",
-      type: "video",
-      category: "tech",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-    {
-      id: 3,
-      title: "Travel Series",
-      client: "Travel App",
-      type: "video",
-      category: "travel",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-    {
-      id: 4,
-      title: "Lifestyle Content",
-      client: "Wellness Brand",
-      type: "photo",
-      category: "lifestyle",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-    {
-      id: 5,
-      title: "Social Campaign",
-      client: "Food Delivery",
-      type: "video",
-      category: "food",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-    {
-      id: 6,
-      title: "Brand Photography",
-      client: "Apparel Company",
-      type: "photo",
-      category: "fashion",
-      thumbnail: "/placeholder.svg?height=600&width=400",
-    },
-  ]
+  // Track window size for responsive adjustments
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth)
+    }
 
-  const filteredItems =
-    activeTab === "all" ? workItems : workItems.filter((item) => item.type === activeTab || item.category === activeTab)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   // Scroll animation effect
   useEffect(() => {
@@ -267,47 +240,54 @@ function UGCPortfolio() {
   return (
     <div className="bg-white text-black min-h-screen">
       {/* Hero Section */}
-      <div ref={heroRef} className="h-screen relative flex items-center overflow-hidden">
-        <div className="absolute inset-0 w-full h-full bg-black/5 z-0" />
-        <div className="container mx-auto px-4 md:px-6 z-10">
+      <div ref={heroRef} className="hero-section"
+      style={{
+        backgroundImage:`url(${DavidPhoto})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
+
+        <div className="hero-overlay"></div>
+        <div className="container">
           <div className="max-w-3xl animate-fadeIn animate-slideUp">
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6">CONTENT CREATOR</h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-xl">
-              Specialized in creating authentic UGC that feels real and delivers measurable results.
+            <h1 className="text-6xl md-text-8xl font-bold tracking-tighter mb-6">DAVID MENDOZA</h1>
+            <p className="fancy-type mb-8">
+            The Gen X guy that makes content that converts?
             </p>
-            <div className="flex items-center gap-6 mb-8">
+            <div className="hero-actions">
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full border-black hover:bg-black hover:text-white transition-all duration-300"
-              >
+                className="rounded-full border-black hover-bg-black hover-text-white transition-all duration-300"
+                onClick ={() => {
+                  const el =document.getElementById("portfolio");
+                  if (el) el.scrollIntoView({behavior: "smooth"});
+                }} >
                 View Portfolio
               </Button>
-              <div className="flex gap-4">
-                <a href="#" className="hover:scale-110 transition-transform duration-300">
+              <div className="hero-social">
+                <a href="https://www.tiktok.com/@thespanishenabler" className="hover-scale transition-transform duration-300">
                   <TikTokIcon />
                 </a>
-                <a href="#" className="hover:scale-110 transition-transform duration-300">
+                <a href="https://www.instagram.com/thespanishenabler/" className="hover-scale transition-transform duration-300">
                   <InstagramIcon />
                 </a>
-                <a href="#" className="hover:scale-110 transition-transform duration-300">
-                  <YoutubeIcon />
-                </a>
+
               </div>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <ArrowRightIcon className="w-6 h-6 rotate-90" />
+        <div className="hero-scroll-indicator">
+          <ArrowRightIcon />
         </div>
       </div>
 
       {/* About Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-fadeIn" style={{ animationDelay: "0.1s" }}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Yes, that's me!</h2>
+      {/* <section className="about-section">
+        <div className="container">
+          <div className="grid md-grid-cols-2 gap-12 items-center">
+            <div className="animate-fadeIn delay-100">
+              <h2 className="text-4xl md-text-5xl font-bold mb-6">Yes, that's me!</h2>
               <p className="text-lg mb-6">
                 I'm your go-to for multilingual UGC that feels real and delivers results. With over 5 years of
                 experience creating content that converts, I help brands connect with their audience through authentic
@@ -316,24 +296,154 @@ function UGCPortfolio() {
               <p className="text-lg mb-8">
                 My content has helped brands increase engagement by an average of 45% and conversion rates by 30%.
               </p>
-              <div className="flex gap-4">
-                <div>
-                  <div className="text-3xl font-bold">500K+</div>
-                  <div className="text-sm text-gray-400">Followers</div>
+              <div className="about-stats">
+                <div className="about-stat">
+                  <div className="about-stat-value">500K+</div>
+                  <div className="about-stat-label">Followers</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold">200+</div>
-                  <div className="text-sm text-gray-400">Projects</div>
+                <div className="about-stat">
+                  <div className="about-stat-value">200+</div>
+                  <div className="about-stat-label">Projects</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold">50+</div>
-                  <div className="text-sm text-gray-400">Brands</div>
+                <div className="about-stat">
+                  <div className="about-stat-value">50+</div>
+                  <div className="about-stat-label">Brands</div>
                 </div>
               </div>
             </div>
-            <div className="relative h-[500px] w-full animate-fadeIn" style={{ animationDelay: "0.3s" }}>
+            <div className="about-image animate-fadeIn delay-300">
               <img
-                src="/placeholder.svg?height=1000&width=800"
+                src={TajMahal}
+                alt="Portrait"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Portfolio Section */}
+      <section section id = "portfolio" className="portfolio-section">
+        <div className="container">
+          <div className="portfolio-header animate-fadeIn delay-100">
+            <h2 className="portfolio-title">"YES, THAT'S ME!"</h2>
+            <h1>I’m your go-to for multilingual UGC
+            that feels real and delivers results.</h1>
+          </div>
+
+          <div className="portfolio-filters">
+            <div className="filter-buttons">
+              {["ed-tech", "cooking", "tech", "fashion", "travel", "food"].map((tab) => (
+                <Button
+                  key={tab}
+                  variant={activeTab === tab ? "primary" : "outline"}
+                  onClick={() => setActiveTab(tab)}
+                  className={`rounded-full text-sm capitalize`}
+                >
+                  {tab}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid lg-grid-cols-2 gap-16 md-gap-20">
+            {/* Phone Frame Videos - Using Loom videos instead of MP4 */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/04bbe2a860244d34a53a751a73e65eaf?sid=11120b96-fcd7-4c05-9d1b-da30aff141ab"
+              title="TECH AND TRAVEL"
+              client="Saily"
+            />
+
+            {/* Second Phone Frame */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/da9fce235b704d3cb68b74c8a299ea5d?sid=e53ef0c0-63b5-4be6-a409-01630e623c43"
+              title="TRAVEL"
+              client="Airback"
+              delay={0.1}
+            />
+
+
+            {/* Third Phone Frame */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/7253692db2e64bbc8c214181e94fb2bf?sid=29a23625-6117-4d4a-9dd8-80e4a39dcf37"
+              title="TECH"
+              client="Meeting.ai"
+              delay={0.2}
+            />
+
+
+            {/* Fourth Phone Frame */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/5d1ce3d098f24cceaa0a36d018eab142?sid=0b06191e-ccfa-4b92-848d-4f99dfafbe6c"
+              title="ED-TECH"
+              client="Unacademy"
+              delay={0.3}
+            />
+
+
+
+            {/* Fifth Phone Frame */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/7253692db2e64bbc8c214181e94fb2bf?sid=5505e830-1a23-4106-9cc2-d02982bcc43f"
+              title="Fashion"
+              client="Pardo"
+              delay={0.4}
+            />
+
+
+
+            {/* Sixth Phone Frame */}
+            <PhoneVideo
+              videoSrc="https://www.loom.com/share/f848b06d46524212b68866f9076a8875?sid=26db4076-86fa-4d00-b884-6cddb1dd6709"
+              title="COOKING"
+              client="Ventray"
+              delay={0.5}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="about-section">
+        <div className="container">
+          <div className="grid md-grid-cols-2 gap-12 items-center">
+            <div className="animate-fadeIn delay-100">
+              <h2 className="text-4xl md-text-5xl font-bold mb-6">WHY ME ?</h2>
+              <p className="text-lg mb-6">
+              I know how to get people to stop scrolling — and take action.
+              I’ve helped professionals and language learners tell better stories, speak with confidence, and build an online presence that increases their visibility and gets results.
+              </p>
+              <p className="text-lg mb-8">
+              With over 500K followers across platforms — all grown organically —    I know what makes content click. And convert.
+              </p>
+              <p className="text-lg mb-6">
+              Brands in the language, food, fashion, travel, and lifestyle space trust me to create UGC that feels authentic, fun, and worth watching. And if you're in a different niche, I'm game!
+              </p>
+              <p className="text-lg mb-6">
+              Let’s make your brand stand out with videos that feel real, speak your customer’s language, and sprinkle in just the right amount of humour.
+              </p>
+              <p className="text-lg mb-6">
+              I create content in English and Spanish, and I can confidently work in Portuguese for conversational or semi-scripted content.
+              </p>
+              
+              <div className="about-stats">
+                <div className="about-stat">
+                  <div className="about-stat-value">500K+</div>
+                  <div className="about-stat-label">Followers</div>
+                </div>
+                <div className="about-stat">
+                  <div className="about-stat-value">200+</div>
+                  <div className="about-stat-label">Projects</div>
+                </div>
+                <div className="about-stat">
+                  <div className="about-stat-value">50+</div>
+                  <div className="about-stat-label">Brands</div>
+                </div>
+              </div>
+            </div>
+            <div className="about-image animate-fadeIn delay-300">
+              <img
+                src={TajMahal}
                 alt="Portrait"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -342,108 +452,20 @@ function UGCPortfolio() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="mb-12 text-center animate-fadeIn" style={{ animationDelay: "0.1s" }}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">WORK SAMPLES</h2>
-            <p className="text-lg max-w-2xl mx-auto">
-              A selection of my best UGC work across various industries and platforms.
-            </p>
-          </div>
-
-          <div className="flex justify-center mb-12 overflow-x-auto pb-4">
-            <div className="flex gap-2 md:gap-4">
-              {["all", "video", "photo", "tech", "fashion", "travel", "food", "lifestyle"].map((tab) => (
-                <Button
-                  key={tab}
-                  variant={activeTab === tab ? "primary" : "outline"}
-                  onClick={() => setActiveTab(tab)}
-                  className={`rounded-full text-sm capitalize ${
-                    activeTab === tab
-                      ? "bg-black text-white"
-                      : "border-black text-black hover:bg-black hover:text-white"
-                  }`}
-                >
-                  {tab}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20">
-            {/* Phone Frame Videos - These stay fixed while scrolling */}
-            <PhoneVideo
-              videoSrc="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
-              title="Tech Product Demo"
-              client="Tech Company"
-            />
-
-            {/* Second Phone Frame */}
-            <PhoneVideo
-              videoSrc="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-              title="Fashion Campaign"
-              client="Apparel Brand"
-              delay={0.1}
-            />
-          </div>
-
-          {/* Additional Portfolio Items */}
-          <div className="mt-32">
-            <h3 className="text-3xl font-bold mb-12 text-center animate-fadeIn" style={{ animationDelay: "0.2s" }}>
-              More Projects
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="group cursor-pointer animate-fadeIn"
-                  style={{ animationDelay: `${0.1 * item.id}s` }}
-                >
-                  <div className="relative aspect-video overflow-hidden mb-4">
-                    <img
-                      src={item.thumbnail || "/placeholder.svg"}
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    {item.type === "video" && (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="bg-black/70 rounded-full p-4">
-                          <PlayIcon className="w-8 h-8 text-white" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <h3 className="text-xl font-bold">{item.title}</h3>
-                  <p className="text-gray-600">{item.client}</p>
-                  <div className="mt-2 inline-block text-sm bg-gray-100 px-3 py-1 rounded-full capitalize">
-                    {item.category}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
       {/* Clients Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16 animate-fadeIn" style={{ animationDelay: "0.1s" }}>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">CLIENTS</h2>
-            <p className="text-lg max-w-2xl mx-auto">Trusted by leading brands across various industries.</p>
+      <section className="clients-section">
+        <div className="container">
+          <div className="clients-header animate-fadeIn delay-100">
+            <h2 className="clients-title">CLIENTS</h2>
+            <p className="clients-description">Trusted by leading brands across various industries.</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="clients-grid md-grid-cols-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center h-24 animate-fadeIn"
-                style={{ animationDelay: `${0.1 * i}s` }}
-              >
-                <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center">
-                  <span className="text-black font-bold">Logo {i}</span>
+              <div key={i} className="client-logo animate-fadeIn" style={{ animationDelay: `${0.1 * i}s` }}>
+                <div className="client-logo-inner">
+                  <span className="client-logo-text">Logo {i}</span>
                 </div>
               </div>
             ))}
@@ -452,21 +474,21 @@ function UGCPortfolio() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-fadeIn" style={{ animationDelay: "0.1s" }}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Work Together</h2>
+      <section className="contact-section">
+        <div className="container">
+          <div className="grid md-grid-cols-2 gap-12 items-center">
+            <div className="animate-fadeIn delay-100">
+              <h2 className="text-4xl md-text-5xl font-bold mb-6">Let's Work Together</h2>
               <p className="text-lg mb-8">
                 Ready to create content that converts? Get in touch to discuss your project.
               </p>
-              <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-8 py-6 text-lg">
+              <Button className="bg-black text-white hover-bg-gray-800 rounded-full px-8 py-6 text-lg">
                 Contact Me
               </Button>
             </div>
-            <div className="bg-gray-100 p-8 rounded-lg animate-fadeIn" style={{ animationDelay: "0.3s" }}>
+            <div className="contact-form animate-fadeIn delay-300">
               <form className="space-y-6">
-                <div>
+                <div className="form-group">
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
                     Name
                   </label>
@@ -476,7 +498,7 @@ function UGCPortfolio() {
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
                   />
                 </div>
-                <div>
+                <div className="form-group">
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
                     Email
                   </label>
@@ -486,7 +508,7 @@ function UGCPortfolio() {
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
                   />
                 </div>
-                <div>
+                <div className="form-group">
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message
                   </label>
@@ -496,7 +518,7 @@ function UGCPortfolio() {
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
                   ></textarea>
                 </div>
-                <Button className="w-full bg-black text-white hover:bg-gray-800">Send Message</Button>
+                <Button className="w-full bg-black text-white hover-bg-gray-800">Send Message</Button>
               </form>
             </div>
           </div>
@@ -504,27 +526,22 @@ function UGCPortfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-black text-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0">
-              <h3 className="text-2xl font-bold">CONTENT CREATOR</h3>
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-logo mb-6 md-mb-0">
+              <h3 className="text-2xl font-bold">DAVID MENDOZA</h3>
             </div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:scale-110 transition-transform duration-300">
+            <div className="footer-social">
+              <a href="https://www.tiktok.com/@thespanishenabler" className="hover-scale transition-transform duration-300">
                 <TikTokIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:scale-110 transition-transform duration-300">
+              <a href="https://www.instagram.com/thespanishenabler/?hl=en" className="hover-scale transition-transform duration-300">
                 <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:scale-110 transition-transform duration-300">
-                <YoutubeIcon className="w-5 h-5" />
               </a>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} Content Creator. All rights reserved.
-          </div>
+          <div className="footer-copyright">© {new Date().getFullYear()} David Mendoza. All rights reserved.</div>
         </div>
       </footer>
     </div>
