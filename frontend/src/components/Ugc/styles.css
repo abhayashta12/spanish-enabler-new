@@ -936,7 +936,6 @@ label {
 .clients-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: #000000;
   color: #ffffff;
 }
 
@@ -949,6 +948,7 @@ label {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
+  color: #000000;
 }
 
 .clients-description {
@@ -956,6 +956,7 @@ label {
   max-width: 42rem;
   margin-left: auto;
   margin-right: auto;
+  color: #000000;
 }
 
 .clients-grid {
@@ -972,7 +973,7 @@ label {
 }
 
 .client-logo-inner {
-  background-color: #ffffff;
+  background-color: black;
   width: 4rem;
   height: 4rem;
   border-radius: 9999px;
@@ -982,7 +983,7 @@ label {
 }
 
 .client-logo-text {
-  color: #000000;
+  color: white;
   font-weight: 700;
 }
 
