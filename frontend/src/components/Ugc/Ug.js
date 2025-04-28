@@ -475,8 +475,18 @@ function UGCPortfolio() {
 
       {/* Contact Section */}
       <section className="contact-section">
-        <div className="container">
-          <div className="grid md-grid-cols-2 gap-12 items-center">
+      <form 
+  action="https://formsubmit.co/david@thespanishenabler.com" 
+  method="POST" 
+  className="space-y-6"
+>
+  {/* Hidden fields for better control */}
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_autoresponse" value="Thanks for contacting The Spanish Enabler. We'll get back to you shortly!" />
+
+  <div className="container">
+          <div className="grid md-grid-cols-2 gap-12 items-center">  
             <div className="animate-fadeIn delay-100">
               <h2 className="text-4xl md-text-5xl font-bold mb-6">Let's Work Together</h2>
               <p className="text-lg mb-8">
@@ -486,44 +496,58 @@ function UGCPortfolio() {
                 Contact Me
               </Button>
             </div>
-            <div className="contact-form animate-fadeIn delay-300">
-              <form className="space-y-6">
-                <div className="form-group">
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
-                  ></textarea>
-                </div>
-                <Button className="w-full bg-black text-white hover-bg-gray-800">Send Message</Button>
-              </form>
-            </div>
+
+  <div className="contact-form animate-fadeIn delay-300">
+  <form className="space-y-6">
+  <div className="form-group">
+    <label htmlFor="name" className="block text-sm font-medium mb-2">
+      Name
+    </label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      required
+      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="email" className="block text-sm font-medium mb-2">
+      Email
+    </label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+    />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor="message" className="block text-sm font-medium mb-2">
+      Message
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      rows={4}
+      required
+      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+    ></textarea>
+  </div>
+  <Button className="w-full bg-black text-white hover-bg-gray-800">
+    Send Message
+  </Button>
+</form>
+</div>
           </div>
         </div>
+</form>
+
       </section>
+
 
       {/* Footer */}
       <footer className="footer">
