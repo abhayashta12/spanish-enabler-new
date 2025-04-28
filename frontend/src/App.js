@@ -18,6 +18,9 @@ import Resources from './components/Resources'
 import Success from './components/Success'
 import AccCourse from './components/courses/AccCourse';
 import UGCLandingPage from './components/Ugc/Ug';
+import ExpressionsPage from './components/leadgen/Expressions';
+import MistakesPage from './components/leadgen/Mistakes';
+import VerbsPage from './components/leadgen/Verbs';
 
 
 function App() {
@@ -53,6 +56,10 @@ function App() {
         <Route path="/courses/Acc" element={<AccCourse />} />
         <Route path="/success" element={<Success/>}/>
         <Route path="/ugc" element={<UGCLandingPage />} />
+        <Route path="/expressions" element={<ExpressionsPage />} />
+        <Route path="/mistakes" element={<MistakesPage/>} />
+        <Route path="/verbs" element={<VerbsPage/>} />
+
       </Routes>
     </Router>
   );
