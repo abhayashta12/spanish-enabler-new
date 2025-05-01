@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const axios = require('axios'); // To make HTTP requests
 const morgan = require('morgan'); // For logging
 const app = express();
-const crypto = require('crypto');
 
 
 // Middleware
@@ -106,8 +105,8 @@ app.post('/subscribe-expressions', async (req, res) => {
   const apiKey = process.env.MAILCHIMP_API_KEY;
   const dataCenter = apiKey.split('-')[1]; // Extract data center from API key
   const listId = process.env.MAILCHIMP_LIST_ID; // SAME LIST
+  const subscriberHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
   const putUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
-  const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`;
 
   try {
     await axios.put(
@@ -144,8 +143,8 @@ app.post('/subscribe-verbs', async (req, res) => {
   const apiKey = process.env.MAILCHIMP_API_KEY;
   const dataCenter = apiKey.split('-')[1];
   const listId = process.env.MAILCHIMP_LIST_ID;
-  const putUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
   const subscriberHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+  const putUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
 
   try {
     await axios.put(
@@ -183,11 +182,8 @@ app.post('/subscribe-mistakes', async (req, res) => {
   const dataCenter = apiKey.split('-')[1];
   const listId = process.env.MAILCHIMP_LIST_ID;
 
-  const crypto = require('crypto');
   const subscriberHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
   const putUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
-
-
 
 
   try {
