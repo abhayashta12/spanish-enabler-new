@@ -10,13 +10,29 @@ function MistakesPage() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    //handle the form submission
-    // sending the data to your email service
-    console.log({ name, email })
-    setIsSubmitted(true)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/subscribe-mistakes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email }),
+      });
+  
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert('Failed to subscribe. Please try again!');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Something went wrong. Please try again!');
+    }
+  };
+  
 
   const currentYear = new Date().getFullYear()
 

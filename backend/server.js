@@ -57,7 +57,7 @@ if (
 
 // Mailchimp Newsletter Endpoint
 app.post('/subscribe', async (req, res) => {
-  const { email } = req.body;
+  const { name, email, tag } = req.body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Invalid email address.' });
@@ -73,6 +73,10 @@ app.post('/subscribe', async (req, res) => {
       {
         email_address: email,
         status: 'subscribed',
+        merge_fields: {
+          FNAME: name,
+        },
+        tags: [tag], // Tag dynamically passed from frontend
       },
       {
         headers: {
@@ -88,6 +92,122 @@ app.post('/subscribe', async (req, res) => {
     res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
   }
 });
+
+// Mailchimp Newsletter Endpoint for Expressions Page
+app.post('/subscribe-expressions', async (req, res) => {
+  const { name, email } = req.body;
+
+  if (!email || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid name or email address.' });
+  }
+
+  const apiKey = process.env.MAILCHIMP_API_KEY;
+  const dataCenter = apiKey.split('-')[1]; // Extract data center from API key
+  const listId = process.env.MAILCHIMP_LIST_ID; // SAME LIST
+
+  const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`;
+
+  try {
+    await axios.post(
+      mailchimpUrl,
+      {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: name,
+        },
+        tags: ['expressions-lead'], // Important: add a unique tag for this campaign
+      },
+      {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
+        },
+      }
+    );
+    res.status(200).json({ message: 'Subscription to Expressions successful!' });
+  } catch (error) {
+    console.error(`Mailchimp error (expressions): ${error.response?.data || error.message}`);
+    res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
+  }
+});
+
+// Mailchimp Newsletter Endpoint for Verbs Page
+app.post('/subscribe-verbs', async (req, res) => {
+  const { name, email } = req.body;
+
+  if (!email || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid name or email address.' });
+  }
+
+  const apiKey = process.env.MAILCHIMP_API_KEY;
+  const dataCenter = apiKey.split('-')[1];
+  const listId = process.env.MAILCHIMP_LIST_ID;
+
+  const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`;
+
+  try {
+    await axios.post(
+      mailchimpUrl,
+      {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: name,
+        },
+        tags: ['verbs-lead'], // 🏷️ Key tag for targeting Verbs campaign
+      },
+      {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
+        },
+      }
+    );
+    res.status(200).json({ message: 'Subscription to Verbs successful!' });
+  } catch (error) {
+    console.error(`Mailchimp error (verbs): ${error.response?.data || error.message}`);
+    res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
+  }
+});
+
+// Mailchimp Newsletter Endpoint for Mistakes Page
+app.post('/subscribe-mistakes', async (req, res) => {
+  const { name, email } = req.body;
+
+  if (!email || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'Invalid name or email address.' });
+  }
+
+  const apiKey = process.env.MAILCHIMP_API_KEY;
+  const dataCenter = apiKey.split('-')[1];
+  const listId = process.env.MAILCHIMP_LIST_ID;
+
+  const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`;
+
+  try {
+    await axios.post(
+      mailchimpUrl,
+      {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: name,
+        },
+        tags: ['mistakes-lead'], // 🏷️ Key tag for targeting Mistakes campaign
+      },
+      {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
+        },
+      }
+    );
+    res.status(200).json({ message: 'Subscription to Mistakes successful!' });
+  } catch (error) {
+    console.error(`Mailchimp error (mistakes): ${error.response?.data || error.message}`);
+    res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
+  }
+});
+
+
 
 // Endpoint for retrieving checkout session details
 app.get('/retrieve-checkout-session/:sessionId', async (req, res) => {
