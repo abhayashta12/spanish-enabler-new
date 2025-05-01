@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const axios = require('axios'); // To make HTTP requests
 const morgan = require('morgan'); // For logging
 const app = express();
-
+const crypto = require('crypto')
 
 // Middleware
 app.use(express.static('public'));
@@ -290,7 +290,6 @@ app.post('/create-checkout-session', async (req, res) => {
 // Webhook Endpoint for Stripe Events
 app.post(
   '/webhook',
-  cors(),
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     console.log('Request received at /webhook');
