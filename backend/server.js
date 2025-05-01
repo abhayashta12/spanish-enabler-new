@@ -16,11 +16,22 @@ app.use(morgan('combined')); // Log HTTP requests
 
 
 // CORS: Restrict origins to the client URL
+const allowedOrigins = [
+  'https://thespanishenabler.com'
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS not allowed from origin: ${origin}`));
+      }
+    },
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
+    credentials: true,
   })
 );
 
