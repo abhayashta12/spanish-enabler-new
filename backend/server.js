@@ -110,7 +110,7 @@ app.post('/subscribe-expressions', async (req, res) => {
   const mailchimpUrl = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`;
 
   try {
-    await axios.post(
+    await axios.put(
       putUrl,
       {
         email_address: email,
@@ -148,7 +148,7 @@ app.post('/subscribe-verbs', async (req, res) => {
   const subscriberHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
 
   try {
-    await axios.post(
+    await axios.put(
       putUrl,
       {
         email_address: email,
@@ -191,7 +191,7 @@ app.post('/subscribe-mistakes', async (req, res) => {
 
 
   try {
-    await axios.post(
+    await axios.put(
       putUrl,
       {
         email_address: email,
