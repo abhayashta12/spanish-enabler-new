@@ -454,7 +454,7 @@ function UGCPortfolio() {
 
       
       {/* Clients Section */}
-      <section className="clients-section">
+      {/* <section className="clients-section">
         <div className="container">
           <div className="clients-header animate-fadeIn delay-100">
             <h2 className="clients-title">CLIENTS</h2>
@@ -471,7 +471,7 @@ function UGCPortfolio() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="contact-section">
